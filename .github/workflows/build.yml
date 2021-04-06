@@ -1,0 +1,56 @@
+name: Build and Test
+
+on: [push]
+
+jobs:
+  build-and-test:
+    runs-on: windows-2019
+
+    steps:
+      - name: Setup .NET Core SDK 3.1.x
+        uses: actions/setup-dotnet@v1.7.2
+        with:
+          dotnet-version: "3.1.x"
+
+      - name: Enable longpaths
+        run: |
+          git version
+          git config --global core.longpaths true
+
+      - name: Checkout Ed-Fi-ODS
+        uses: actions/checkout@v2.3.4
+        with:
+          repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS
+          path: Ed-Fi-ODS/
+
+      - name: Checkout Ed-Fi-ODS-Implementation
+        uses: actions/checkout@v2.3.4
+        with:
+          repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS-Implementation
+          path: Ed-Fi-ODS-Implementation/
+
+      - name: Checkout Ed-Fi-Extensions
+        uses: actions/checkout@v2.3.4
+        with:
+          repository: Ed-Fi-Alliance-OSS/Ed-Fi-Extensions
+          path: Ed-Fi-Extensions/
+
+      - name: CodeGen
+        shell: powershell
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $PSVersionTable
+          . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/Initialize-PowershellForDevelopment.ps1
+          Invoke-CodeGen -Engine SQLServer -ExtensionPaths $env:GITHUB_WORKSPACE/Ed-Fi-Extensions/Extensions/EdFi.Ods.Extensions.Sample/
+
+      - name: DotNet Info
+        run: dotnet --info
+
+      - name: Add Nuget Source
+        run: dotnet nuget add source https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json -n "Ed-Fi Alliance Azure Artifacts Feed"
+
+      - name: Build
+        run: dotnet build $env:GITHUB_WORKSPACE/Ed-Fi-Extensions/Extensions/EdFi.Ods.Extensions.Sample/ --configuration release
+
+      - name: Test
+        run: dotnet test $env:GITHUB_WORKSPACE/Ed-Fi-Extensions/Extensions/EdFi.Ods.Extensions.Sample/ --no-restore --verbosity normal
