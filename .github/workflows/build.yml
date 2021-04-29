@@ -32,6 +32,7 @@ jobs:
       - name: Checkout Ed-Fi-Extensions
         uses: actions/checkout@v2.3.4
         with:
+          ref: SEASK-49
           repository: Ed-Fi-Alliance-OSS/Ed-Fi-Extensions
           path: Ed-Fi-Extensions/
 
@@ -49,8 +50,14 @@ jobs:
       - name: Add Nuget Source
         run: dotnet nuget add source https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json -n "Ed-Fi Alliance Azure Artifacts Feed"
 
-      - name: Build
+      - name: Build EdFi.Ods.Extensions.Sample
         run: dotnet build $env:GITHUB_WORKSPACE/Ed-Fi-Extensions/Extensions/EdFi.Ods.Extensions.Sample/ --configuration release
 
-      - name: Test
+      - name: Test EdFi.Ods.Extensions.Sample
         run: dotnet test $env:GITHUB_WORKSPACE/Ed-Fi-Extensions/Extensions/EdFi.Ods.Extensions.Sample/ --no-restore --verbosity normal
+        
+      - name: Build EdFi.Ods.Extensions.SK
+        run: dotnet build $env:GITHUB_WORKSPACE/Ed-Fi-Extensions/Extensions/EdFi.Ods.Extensions.SK/ --configuration release
+
+      - name: Test EdFi.Ods.Extensions.SK
+        run: dotnet test $env:GITHUB_WORKSPACE/Ed-Fi-Extensions/Extensions/EdFi.Ods.Extensions.SK/ --no-restore --verbosity normal
