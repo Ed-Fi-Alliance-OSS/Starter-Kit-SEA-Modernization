@@ -42,7 +42,7 @@ jobs:
           $ErrorActionPreference = 'Stop'
           $PSVersionTable
           . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/Initialize-PowershellForDevelopment.ps1
-          Invoke-CodeGen -Engine SQLServer -ExtensionPaths $env:GITHUB_WORKSPACE/Ed-Fi-Extensions/Extensions/EdFi.Ods.Extensions.Sample/
+          Invoke-CodeGen -Engine SQLServer -ExtensionPaths $env:GITHUB_WORKSPACE/Ed-Fi-Extensions/Extensions/EdFi.Ods.Extensions.SK/
 
       - name: DotNet Info
         run: dotnet --info
@@ -50,12 +50,6 @@ jobs:
       - name: Add Nuget Source
         run: dotnet nuget add source https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json -n "Ed-Fi Alliance Azure Artifacts Feed"
 
-      - name: Build EdFi.Ods.Extensions.Sample
-        run: dotnet build $env:GITHUB_WORKSPACE/Ed-Fi-Extensions/Extensions/EdFi.Ods.Extensions.Sample/ --configuration release
-
-      - name: Test EdFi.Ods.Extensions.Sample
-        run: dotnet test $env:GITHUB_WORKSPACE/Ed-Fi-Extensions/Extensions/EdFi.Ods.Extensions.Sample/ --no-restore --verbosity normal
-        
       - name: Build EdFi.Ods.Extensions.SK
         run: dotnet build $env:GITHUB_WORKSPACE/Ed-Fi-Extensions/Extensions/EdFi.Ods.Extensions.SK/ --configuration release
 
