@@ -29,12 +29,12 @@ jobs:
           repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS-Implementation
           path: Ed-Fi-ODS-Implementation/
 
-      - name: Checkout Ed-Fi-Extensions
+      - name: Checkout Starter Kit Sample Extension
         uses: actions/checkout@v2.3.4
         with:
           ref: SEASK-49
-          repository: Ed-Fi-Alliance-OSS/Ed-Fi-Extensions
-          path: Ed-Fi-Extensions/
+          repository: Ed-Fi-Alliance-OSS/Starter-Kit-SEA-Data-Collection
+          path: Starter-Kit-SEA-Data-Collection
 
       - name: CodeGen
         shell: powershell
@@ -42,7 +42,7 @@ jobs:
           $ErrorActionPreference = 'Stop'
           $PSVersionTable
           . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/Initialize-PowershellForDevelopment.ps1
-          Invoke-CodeGen -Engine SQLServer -ExtensionPaths $env:GITHUB_WORKSPACE/Ed-Fi-Extensions/Extensions/EdFi.Ods.Extensions.SK/
+          Invoke-CodeGen -Engine SQLServer -ExtensionPaths $env:GITHUB_WORKSPACE/Starter-Kit-SEA-Data-Collection/sample-extension/EdFi.Ods.Extensions.Sk/
 
       - name: DotNet Info
         run: dotnet --info
@@ -51,7 +51,7 @@ jobs:
         run: dotnet nuget add source https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json -n "Ed-Fi Alliance Azure Artifacts Feed"
 
       - name: Build EdFi.Ods.Extensions.SK
-        run: dotnet build $env:GITHUB_WORKSPACE/Ed-Fi-Extensions/Extensions/EdFi.Ods.Extensions.SK/ --configuration release
+        run: dotnet build $env:GITHUB_WORKSPACE/Starter-Kit-SEA-Data-Collection/sample-extension/EdFi.Ods.Extensions.Sk/ --configuration release
 
       - name: Test EdFi.Ods.Extensions.SK
-        run: dotnet test $env:GITHUB_WORKSPACE/Ed-Fi-Extensions/Extensions/EdFi.Ods.Extensions.SK/ --no-restore --verbosity normal
+        run: dotnet test $env:GITHUB_WORKSPACE/Starter-Kit-SEA-Data-Collection/sample-extension/EdFi.Ods.Extensions.Sk/ --no-restore --verbosity normal
