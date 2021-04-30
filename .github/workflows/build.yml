@@ -50,8 +50,8 @@ jobs:
       - name: Add Nuget Source
         run: dotnet nuget add source https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json -n "Ed-Fi Alliance Azure Artifacts Feed"
 
-      - name: Build EdFi.Ods.Extensions.SK
+      - name: Build Starter Kit Sample Extension
         run: dotnet build $env:GITHUB_WORKSPACE/Starter-Kit-SEA-Data-Collection/sample-extension/EdFi.Ods.Extensions.Sk/ --configuration release
 
-      - name: Test EdFi.Ods.Extensions.SK
+      - name: Test Starter Kit Sample Extension
         run: dotnet test $env:GITHUB_WORKSPACE/Starter-Kit-SEA-Data-Collection/sample-extension/EdFi.Ods.Extensions.Sk/ --no-restore --verbosity normal
