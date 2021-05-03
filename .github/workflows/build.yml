@@ -60,7 +60,7 @@ jobs:
         run: dotnet test $env:GITHUB_WORKSPACE/Starter-Kit-SEA-Data-Collection/sample-extension/EdFi.Ods.Extensions.Sk/ --no-restore --verbosity normal
         
       - name: Pack
-        run: dotnet pack --configuration Release -p:PackageVersion=1.0.$env:GITHUB_RUN_NUMBER $env:GITHUB_WORKSPACE/Starter-Kit-SEA-Data-Collection/sample-extension/EdFi.Ods.Extensions.Sk/EdFi.Ods.Extensions.Sk.csproj --output .
+        run: dotnet pack --configuration Release -p:PackageVersion=1.0.$env:GITHUB_RUN_NUMBER $env:GITHUB_WORKSPACE/Starter-Kit-SEA-Data-Collection/sample-extension/EdFi.Ods.Extensions.Sk/EdFi.Ods.Extensions.Sk.csproj -p:NuspecFile=$env:GITHUB_WORKSPACE/Starter-Kit-SEA-Data-Collection/sample-extension/EdFi.Ods.Extensions.Sk/EdFi.Ods.Extensions.Sk.nuspec --output .
 
       - name: Push
         run: dotnet nuget push EdFi.Ods.Extensions.Sk.1.0.$env:GITHUB_RUN_NUMBER.nupkg --api-key AzureArtifacts
