@@ -60,6 +60,4 @@ jobs:
         run: dotnet pack --configuration Release --no-restore -p:PackageVersion=5.3.20 $env:GITHUB_WORKSPACE/Starter-Kit-SEA-Data-Collection/sample-extension/EdFi.Ods.Extensions.Sk/EdFi.Ods.Extensions.Sk.csproj --output .
 
       - name: Push
-        run: dotnet nuget push EdFi.Ods.Extensions.Sk.5.3.20.nupkg --source https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json --api-key ${API_KEY}
-        env:
-          API_KEY: ${{ secrets.AZURE_ARTIFACTS_PERSONAL_ACCESS_TOKEN }}
+        run: dotnet nuget push EdFi.Ods.Extensions.Sk.5.3.20.nupkg --source https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json --api-key ${{ secrets.AZURE_ARTIFACTS_PERSONAL_ACCESS_TOKEN }}
