@@ -64,10 +64,6 @@ variable "vm_name" {
   type = string
 }
 
-variable "vm_switch" {
-  type = string
-}
-
 variable "distribution_directory" {
   type = string
 }
@@ -104,7 +100,6 @@ source "hyperv-vmcx" "sea-starter-kit" {
   headless             = "${var.headless}"
   memory               = "${var.memory}"
   shutdown_command     = "${var.shutdown_command}"
-  switch_name          = "${var.vm_switch}"
   vm_name              = "${var.vm_name}"
   winrm_password       = "${var.password}"
   winrm_timeout        = "10000s"

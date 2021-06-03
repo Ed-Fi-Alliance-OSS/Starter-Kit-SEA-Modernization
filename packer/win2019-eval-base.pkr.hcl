@@ -38,10 +38,6 @@ variable "version" {
   type    = string
 }
 
-variable "vm_switch" {
-  type    = string
-}
-
 variable "user_name" {
     type = string
 }
@@ -81,7 +77,6 @@ source "hyperv-iso" "ed-fi-base-image" {
   iso_url          = "${var.iso_url}"
   memory           = "${var.memory}"
   shutdown_command = "${var.shutdown_command}"
-  switch_name      = "${var.vm_switch}"
   vm_name          = "${var.vm_name}"
   winrm_password   = "${var.password}"
   winrm_timeout    = "10000s"

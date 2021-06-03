@@ -82,10 +82,10 @@ function Invoke-Packer {
     & packer init $ConfigPath
 
     if ( -not $ISOUrl) {
-        & packer build -force -var "vm_switch=$($VMSwitch)" "-var-file=$($VariablesPath)" $ConfigPath
+        & packer build -force "-var-file=$($VariablesPath)" $ConfigPath
     }
     else {
-        & packer build -force -var "vm_switch=$($VMSwitch)" -var "iso_url=$($ISOUrl)" "-var-file=$($VariablesPath)" $ConfigPath
+        & packer build -force -var "iso_url=$($ISOUrl)" "-var-file=$($VariablesPath)" $ConfigPath
     }
 }
 
