@@ -3908,6 +3908,9 @@
 			]
 		}
 	],
+	"protocolProfileBehavior": {
+		"strictSSL": false
+	},
 	"auth": {
 		"type": "bearer",
 		"bearer": [
